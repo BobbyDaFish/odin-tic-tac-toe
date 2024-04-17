@@ -115,7 +115,5 @@ while game_playing
     puts game_board[:row1].join(', '), game_board[:row2].join(', '), game_board[:row3].join(', ')
     puts 'The game is a draw!'
     game_playing = false
-  else
-    puts 'Next turn!'
   end
 end
