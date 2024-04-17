@@ -63,13 +63,13 @@ class Player
   def update_board(choice, board)
     if [1, 2, 3].include?(choice)
       i = board[:row1].index(choice)
-      board[:row1][i] = @player_symbol
+      board[:row1][i] = @player_icon
     elsif [4, 5, 6].include?(choice)
       i = board[:row2].index(choice)
-      board[:row2][i] = @player_symbol
+      board[:row2][i] = @player_icon
     else
       i = board[:row3].index(choice)
-      board[:row3][i] = @player_symbol
+      board[:row3][i] = @player_icon
     end
     board
   end
