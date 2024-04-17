@@ -57,9 +57,10 @@ class Player
        win_cond == [board[:row1][2], board[:row2][1], board[:row3][0]]
       puts board[:row1].join(', '), board[:row2].join(', '), board[:row3].join(', ')
       puts "Player #{player_icon} wins!"
-      game_playing = false
+      false
     else
       puts "Player #{player_icon}\'s turn is over."
+      true
     end
   end
 
@@ -101,12 +102,12 @@ puts game_board[:row1].join(', '), game_board[:row2].join(', '), game_board[:row
 while game_playing
   if x_player.turn
     game_board = x_player.player_turn(game_board)
-    x_player.winner?(game_board) # check win conditions
+    game_playing = x_player.winner?(game_board) # check win conditions
     x_player.turn = false
     o_player.turn = true
   elsif o_player.turn
     game_board = o_player.player_turn(game_board)
-    o_player.winner?(game_board) # check win conditions
+    game_playing = o_player.winner?(game_board) # check win conditions
     x_player.turn = true
     o_player.turn = false
   end
