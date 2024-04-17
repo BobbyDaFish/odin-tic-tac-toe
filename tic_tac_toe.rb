@@ -8,7 +8,7 @@ class Player
   attr_accessor :turn, :choice
   attr_reader :player_icon
 
-  def initialize(player_icon, turn, play)
+  def initialize(player_icon, turn, choice)
     @player_icon = player_icon
     @turn = turn
     @choice = choice
@@ -22,7 +22,8 @@ class Player
     puts board[:row1].join(', '), board[:row2].join(', '), board[:row3].join(', ')
     puts "Player #{player_icon} where do you want to play? Choose a number from the board."
     @choice = valid_play?(gets.chop.to_i, board) # get the player's choice, and check to make sure it's a valid number, and a valid play.
-    update_board(@play, board) # update game board to reflect their play
+    update_board(@choice, board) # update game board to reflect their play
+    board
   end
 
   def valid_play?(choice, board) # validate possible move
@@ -58,8 +59,19 @@ class Player
     end
   end
 
-  def update_board
-
+  def update_board(choice, board)
+    binding.pry
+    if [1, 2, 3].include?(choice)
+      i = board[:row1].index(choice)
+      board[:row1][i] = @player_symbol
+    elsif [4, 5, 6].include?(choice)
+      i = board[:row2].index(choice)
+      board[:row2][i] = @player_symbol
+    else
+      i = board[:row3].index(choice)
+      board[:row3][i] = @player_symbol
+    end
+    board
   end
 end
 
@@ -81,12 +93,12 @@ puts 'Time to play! Determine who goes first by rock, paper, scissors!'
 puts game_board[:row1].join(', '), game_board[:row2].join(', '), game_board[:row3].join(', ')
 while game_playing
   if x_player.turn
-    x_player.player_turn(game_board)
+    game_board = x_player.player_turn(game_board)
     x_player.winner?(game_board) # check win conditions
     x_player.turn = false
     o_player.turn = true
   elsif o_player.turn
-    o_player.player_turn(game_board)
+    game_board = o_player.player_turn(game_board)
     o_player.is_winner?(game_board) # check win conditions
     x_player.turn = true
     o_player.turn = false
