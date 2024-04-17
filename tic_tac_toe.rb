@@ -5,13 +5,13 @@ require 'pry-byebug' # temporary for debugging
 # This is the player class, it will hold the symbol, a boolean for whether it is their turn
 # and their most recent play
 class Player
-  attr_accessor :turn, :play
+  attr_accessor :turn, :choice
   attr_reader :player_icon
 
   def initialize(player_icon, turn, play)
     @player_icon = player_icon
     @turn = turn
-    @play = play
+    @choice = choice
   end
 
   def turn?
@@ -21,24 +21,24 @@ class Player
   def player_turn(board)
     puts board[:row1].join(', '), board[:row2].join(', '), board[:row3].join(', ')
     puts "Player #{player_icon} where do you want to play? Choose a number from the board."
-    @play = valid_play?(gets.chop) # get the player's choice, and check to make sure it's a valid number, and a valid play.
+    @choice = valid_play?(gets.chop.to_i, board) # get the player's choice, and check to make sure it's a valid number, and a valid play.
     update_board(@play, board) # update game board to reflect their play
   end
 
-  def valid_play?(play) # validate possible move
+  def valid_play?(choice, board) # validate possible move
     valid_play = false
     until valid_play == true
-      if play == play.to_i
-        if game_board.any?(play) == true
+      if choice == choice.to_i
+        if board.any? { |_k, a| a.include?(choice) }
           valid_play = true
-          play
+          choice
         else
           puts 'Invalid choice, enter a number from the board.'
-          play = gets.chop
+          choice = gets.chop.to_i
         end
       else
         puts 'Invalid choice, enter a number from the board.'
-        play = gets.chop
+        choice = gets.chop.to_i
       end
     end
   end
@@ -58,6 +58,9 @@ class Player
     end
   end
 
+  def update_board
+
+  end
 end
 
 def new_board
