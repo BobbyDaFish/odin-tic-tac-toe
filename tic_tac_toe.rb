@@ -45,11 +45,14 @@ class Player
     choice
   end
 
-  def winner?(board)
+  def winner?(board) # check to see if a win condition is met
     win_cond = [@player_icon, @player_icon, @player_icon]
     if board[:row1] == win_cond ||
        board[:row2] == win_cond ||
        board[:row3] == win_cond ||
+       win_cond == [board[:row1][0], board[:row2][0], board[:row3][0]] ||
+       win_cond == [board[:row1][1], board[:row2][1], board[:row3][1]] ||
+       win_cond == [board[:row1][2], board[:row2][2], board[:row3][2]] ||
        win_cond == [board[:row1][0], board[:row2][1], board[:row3][2]] ||
        win_cond == [board[:row1][2], board[:row2][1], board[:row3][0]]
       puts board[:row1].join(', '), board[:row2].join(', '), board[:row3].join(', ')
@@ -60,7 +63,7 @@ class Player
     end
   end
 
-  def update_board(choice, board)
+  def update_board(choice, board) # update the board with the valid play
     if [1, 2, 3].include?(choice)
       i = board[:row1].index(choice)
       board[:row1][i] = @player_icon
@@ -75,7 +78,7 @@ class Player
   end
 end
 
-def draw?(board)
+def draw?(board) # if any integers still exist it's not a draw
   board.any? { |_k, a| a.include?(Integer) }
 end
 
