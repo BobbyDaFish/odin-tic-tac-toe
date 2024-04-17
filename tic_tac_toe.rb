@@ -19,7 +19,7 @@ class Player
   end
 
   def player_turn(board)
-    puts board[:row1].join(', '), board[:row2].join(', '), board[:row3].join(', ')
+    puts board[:row1].join(' | '), '----------', board[:row2].join(' | '), '----------', board[:row3].join(' | ')
     puts "Player #{player_icon} where do you want to play? Choose a number from the board."
     @choice = valid_play?(gets.chop.to_i, board) # get the player's choice, and check to make sure it's a valid number, and a valid play.
     update_board(@choice, board) # update game board to reflect their play
@@ -55,7 +55,7 @@ class Player
        win_cond == [board[:row1][2], board[:row2][2], board[:row3][2]] ||
        win_cond == [board[:row1][0], board[:row2][1], board[:row3][2]] ||
        win_cond == [board[:row1][2], board[:row2][1], board[:row3][0]]
-      puts board[:row1].join(', '), board[:row2].join(', '), board[:row3].join(', ')
+      puts board[:row1].join(' | '), '----------', board[:row2].join(' | '), '----------', board[:row3].join(' | ')
       puts "Player #{player_icon} wins!"
       false
     else
@@ -98,7 +98,7 @@ game_board = new_board
 game_playing = true
 
 puts 'Time to play! Determine who goes first by rock, paper, scissors!'
-puts game_board[:row1].join(', '), game_board[:row2].join(', '), game_board[:row3].join(', ')
+puts game_board[:row1].join(' | '), '----------', game_board[:row2].join(' | '), '----------', game_board[:row3].join(' | ')
 while game_playing
   if x_player.turn
     game_board = x_player.player_turn(game_board)
@@ -112,7 +112,7 @@ while game_playing
     o_player.turn = false
   end
   if draw?(game_board) # check if game is draw
-    puts game_board[:row1].join(', '), game_board[:row2].join(', '), game_board[:row3].join(', ')
+    puts game_board[:row1].join(' | '), '----------', game_board[:row2].join(' | '), '----------', game_board[:row3].join(' | ')
     puts 'The game is a draw!'
     game_playing = false
   end
