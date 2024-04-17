@@ -42,6 +42,7 @@ class Player
         choice = gets.chop.to_i
       end
     end
+    choice
   end
 
   def winner?(board)
@@ -60,7 +61,6 @@ class Player
   end
 
   def update_board(choice, board)
-    binding.pry
     if [1, 2, 3].include?(choice)
       i = board[:row1].index(choice)
       board[:row1][i] = @player_symbol
