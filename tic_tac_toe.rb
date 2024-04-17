@@ -75,6 +75,10 @@ class Player
   end
 end
 
+def draw?(board)
+  board.any? { |_k, a| a.include?(Integer) }
+end
+
 def new_board
   {
     row1: [1, 2, 3],
@@ -99,11 +103,11 @@ while game_playing
     o_player.turn = true
   elsif o_player.turn
     game_board = o_player.player_turn(game_board)
-    o_player.is_winner?(game_board) # check win conditions
+    o_player.winner?(game_board) # check win conditions
     x_player.turn = true
     o_player.turn = false
   end
-  if is_draw?(game_board) # check if game is draw
+  if draw?(game_board) # check if game is draw
     puts game_board[:row1].join(', '), game_board[:row2].join(', '), game_board[:row3].join(', ')
     puts 'The game is a draw!'
     game_playing = false
