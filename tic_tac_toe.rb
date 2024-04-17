@@ -12,5 +12,5 @@ class Player
   end
 
 end
-x_player = Player.new("X", true, 0)
-o_player = Player.new("O", false, 0)
+x_player = Player.new('X', true, 0)
+o_player = Player.new('O', false, 0)
